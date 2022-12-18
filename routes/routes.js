@@ -17,9 +17,9 @@ router.post("/api/createvendor", async (req, res) => {
     });
     //save this item in database
     const saveItem = await newItem.save();
-    res.status(200).json({ message: "Vendor added successfully" });
+    res.status(201).json({ message: "Vendor added successfully" });
   } catch (err) {
-    res.json({ message: err.message });
+    res.status(400).json({ message: err.message });
   }
 });
 
@@ -29,7 +29,7 @@ router.get("/api/vendor", async (req, res) => {
     const allVendorLists = await VendorSchema.find({});
     res.status(200).json(allVendorLists);
   } catch (err) {
-    res.json({ message: err.message });
+    res.status(400).json({ message: err.message });
   }
 });
 //create second route -- get data from database
@@ -38,14 +38,14 @@ router.get("/api/vendor/:id", async (req, res) => {
     const { id } = req.params;
     const user = await VendorSchema.findById(id);
 
-    res.json({
+    res.status(200).json({
       success: true,
       user,
     });
     // const allVendorLists = await VendorSchema.find({});
     // res.status(200).json(allVendorLists);
   } catch (err) {
-    res.json({ message: err.message });
+    res.status(400).json({ message: err.message });
   }
 });
 
@@ -58,7 +58,7 @@ router.put("/api/vendor/:id", async (req, res) => {
     });
     res.status(200).json({ message: "Record updated successfully" });
   } catch (err) {
-    res.json({ message: err.message });
+    res.status(404).json({ message: err.message });
   }
 });
 
@@ -69,7 +69,7 @@ router.delete("/api/vendor/:id", async (req, res) => {
     const deleteItem = await VendorSchema.findByIdAndDelete(req.params.id);
     res.status(200).json({ message: "Record Deleted successfully" });
   } catch (err) {
-    res.json({ message: err.message });
+    res.status(400).json({ message: err.message });
   }
 });
 
