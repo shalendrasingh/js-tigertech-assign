@@ -17,9 +17,11 @@ router.post("/api/createvendor", async (req, res) => {
     });
     //save this item in database
     const saveItem = await newItem.save();
-    res.status(201).json({ message: "Vendor added successfully" });
+    res
+      .status(201)
+      .json({ status: true, message: "Vendor added successfully" });
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    res.status(400).json({ status: false, message: err.message });
   }
 });
 
